@@ -7,8 +7,19 @@ public class Todo0116 {
 	public static void main(String[] args) {
 		Scanner scn = new Scanner(System.in);
 		
-		System.out.println("값을 입력>>> ");
-		String input = scn.nextLine();
+		
+		while(true) {
+			System.out.println("값을 입력>>> ");
+			String input = scn.nextLine();
+			if(input.equals("quit")) {
+			break;
+			}
+		}
+		System.out.println("<<end of prog>>");
+		
+		
+		
+		
 		// input.equals("quit")
 		
 		//입력값은 홍길동 입니다.
