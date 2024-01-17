@@ -12,19 +12,20 @@ public class Todo0116 {
 			System.out.println("값을 입력>>> ");
 			String input = scn.nextLine();
 			if(input.equals("quit")) {
+				// input.equals("quit")
 			break;
 			}
+			//입력값은 홍길동 입니다.
+			System.out.printf("입력한 값은 %s 입니다.",input);
+			System.out.println();
 		}
 		System.out.println("<<end of prog>>");
-		
-		
-		
-		
-		// input.equals("quit")
-		
-		//입력값은 홍길동 입니다.
-		
 		//"quit" 값이 들어오면 <<end of prog>>
 	}
-
 }
+		
+		
+		
+		
+		
+		
