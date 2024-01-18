@@ -27,11 +27,11 @@ public class FriendExe {
 			int menu = Integer.parseInt(scn.nextLine()); 
 			switch(menu) {
 			case 1 : //등록
-				System.out.println("이름>>>");
+				System.out.println("이름>>>   ");
 				String name = scn.nextLine();
-				System.out.println("몸무게>>>");
+				System.out.println("몸무게>>>   ");
 				weight = Double.parseDouble(scn.nextLine());
-				System.out.println("점수>>>");
+				System.out.println("점수>>>   ");
 				score = Integer.parseInt(scn.nextLine());
 				
 				Friend friend = new Friend();
@@ -97,14 +97,35 @@ public class FriendExe {
 				System.out.println("삭제완료");
 				break;
 			case 5 : //점수조회
-					System.out.println("조회할 점수>>");
-					score = Integer.parseInt(scn.nextLine());
-					
+				    System.out.println("조회할 점수>>>");
+				    score= Integer.parseInt(scn.nextLine());
+				    for (int i = 0; i < friends.length; i++) {
+				        if (friends[i] != null && friends[i].score > score) {
+				            System.out.printf(" 이름: %s\n점수 : %d\n", friends[i].name,friends[i].score);
+				        }
+				    }
+				    break;
 			case 6 ://분석조회
 					double avg = 0;
 					int max = 0, cnt = 0;
 					double sum = 0;
-						
+					for(int i = 0; i < friends.length; i++) {
+						if(friends[i] != null) {
+							sum += friends[i].score;
+							cnt++;
+							if(friends[i].score > max) {
+								max = friends[i].score;
+								if(cnt > 0) {
+									avg = sum / cnt;
+								}
+							}
+						}
+					}
+					System.out.println("총원 : "+cnt+"점");
+					System.out.println("총합 : "+sum+"점");
+					System.out.println("평균 : "+avg+"점");
+					System.out.println("최고점수 : "+max+"점");
+					break;
 			case 9 : //종료	
 				run = false;
 				
