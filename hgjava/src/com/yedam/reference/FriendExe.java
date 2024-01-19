@@ -101,14 +101,14 @@ public class FriendExe {
 				    score= Integer.parseInt(scn.nextLine());
 				    for (int i = 0; i < friends.length; i++) {
 				        if (friends[i] != null && friends[i].score > score) {
-				            System.out.printf(" 이름: %s\n점수 : %d\n", friends[i].name,friends[i].score);
+				            System.out.printf(" 이름: %s   점수 : %d\n", friends[i].name,friends[i].score);
 				        }
 				    }
 				    break;
 			case 6 ://분석조회
-					double avg = 0;
+					
 					int max = 0, cnt = 0;
-					double sum = 0;
+					double sum = 0, avg = 0;
 					for(int i = 0; i < friends.length; i++) {
 						if(friends[i] != null) {
 							sum += friends[i].score;
@@ -121,10 +121,10 @@ public class FriendExe {
 							}
 						}
 					}
-					System.out.println("총원 : "+cnt+"점");
-					System.out.println("총합 : "+sum+"점");
-					System.out.println("평균 : "+avg+"점");
-					System.out.println("최고점수 : "+max+"점");
+					System.out.println("총원 : " + cnt + "명");
+					System.out.println("총합 : " + sum + "점");
+					System.out.println("평균 : " + avg + "점");
+					System.out.println("최고점수 : " + max + "점");
 					break;
 			case 9 : //종료	
 				run = false;
