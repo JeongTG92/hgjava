@@ -1,0 +1,4 @@
+sample.txt
+Hello
+World
+Nice
