@@ -3,74 +3,74 @@ package com.yedam.io;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ByteStreamExe {
 	public static void main(String[] args) {
-		// 입력출력 => 복사
+		// 바이트 출력 스트림
+		copy();
+	}
+
+	static void copy() {
+		//입력출력 => 복사
 		try {
-			FileInputStream fis = new FileInputStream("c:/Temp/Setup.exe");
-			FileOutputStream fos = new FileOutputStream("c:/Temp/copySetup2.exe");
-			//byte[] byteAry = new byte[100]; //배열을 활용한 속도향상
+			FileInputStream fis = new FileInputStream("c:/temp/sample.png");
+			FileOutputStream fos = new FileOutputStream("c:/temp/copy2.png");
+
+			//기본 스트림
+			//byte[] byteAry = new byte[100];
 			
-			//보조스트림 Buffered...
+			//보조 스트림 Buffered
 			BufferedInputStream bis = new BufferedInputStream(fis);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			
-			
-			while(true) {
-			int buf = bis.read(); //fis.read();
-			if(buf == -1) {
-				break; //종료
+			while(true)
+			{
+				int buf = bis.read(); //fis.read(byteAry);
+				if (buf == -1) {break;}
+				bos.write(buf); //fos.write(byteAry);				
 			}
-//			fos.write(byteAry);
-			bos.write(buf);
-			}
-			bos.flush(); bos.close();
-			fos.flush(); fos.close();
+			bos.flush();
+			bos.close();
+			fos.flush(); 
+			fos.close();
 			bis.close();
 			fis.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("end of file");
+		System.out.println("end of copy");
 	}
-
 	static void read() {
-		
 		try {
-			FileInputStream fis = new FileInputStream("c:/Temp/sample.dat");
+			FileInputStream fis = new FileInputStream("c:/temp/sample.dat");
 			while (true) {
-				int bytes = fis.read(); // 파일의 끝부분 => -1 반환
-				if (bytes == -1) {
+				int bytes = fis.read(); //eof => -1 반환
+				if (bytes == -1)
+				{
 					break;
 				}
 				System.out.println(bytes);
 			}
 			fis.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("end of read");
 	}
-
 	static void write() {
-
-		// 바이트 출력 스트림
 		try {
-			FileOutputStream fos = new FileOutputStream("c:/Temp/sample.dat");
+			FileOutputStream fos = new FileOutputStream("c:/temp/sample.dat");
 			fos.write(10);
 			fos.write(20);
 			fos.write(30);
-			fos.flush();
-			fos.close(); // 자원환원. 꼭 해줘야함
-
+			fos.flush(); // 다 쓰고 난 뒤엔 정보를 다 비우겠다
+			fos.close(); // 자원 환원
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("end of write");
 	}
-
 }

@@ -1,25 +1,22 @@
 package com.yedam.io;
 
-import java.awt.Frame;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.invoke.StringConcatFactory;
 import java.util.Scanner;
 
+//문자 기반 입출력 스트림
 public class CharStreamExe {
-	Scanner scn = new Scanner(System.in);
+	static Scanner scn = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		// 문자기반 입출력.
 		try {
-			FileReader fr = new FileReader("c:/Temp/text.dat");
-			BufferedReader br = new BufferedReader(fr);
-			while (true) {
-				String read = br.readLine(); // 한라인씩 읽기
-				if(read == null) { // 읽은 값이 없으면 null 반환 
+			FileReader fr = new FileReader("c:/temp/text.dat");
+			BufferedReader br = new BufferedReader(fr);			
+			while(true) {
+				String read = br.readLine(); //한 라인 씩 읽기
+				if (read == null) {
 					break;
 				}
 				System.out.println(read);
@@ -30,50 +27,49 @@ public class CharStreamExe {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("end of prog");
 	}
-
-	static void read() {
-
+	static void read()
+	{
 		Class cls = CharStreamExe.class;
 		String path = cls.getResource("ByteStreamExe.class").getPath();
 		System.out.println(path);
+		path = "D:/git/hgjava/hgjava/src/com/yedam/io/ByteStreamExe.java";
 
 		try {
-			FileReader fir = new FileReader("/D:/git/hgjava/hgjava/src/com/yedam/io/ByteStreamExe.java");
-			while (true) {
-				int read = fir.read();
-				if (read == -1) {
+			FileReader fr = new FileReader(path);
+			while(true)
+			{
+				int read = fr.read();
+				if (read == -1)
+				{
 					break;
 				}
-				System.out.print((char) read);
+				System.out.print((char)read);
 			}
-			fir.close();
+			fr.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		System.out.println("end of read");
 	}
 
 	static void write() {
-
-//		try {
-//			FileWriter fw = new FileWriter("c:/Temp/text.dat");
-//			while (true) {
-//				System.out.println("입력>> ");
-//				String str = scn.nextLine();
-//				if (str.equals("stop")) {
-//					break;
-//				}
-//				fw.write(str + "\n");
-//			}
-//			fw.flush();
-//			fw.close();
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
+		try {
+			FileWriter fw = new FileWriter("c:/temp/text.dat");
+			while (true) {
+				System.out.println("입력>> ");
+				String str = scn.nextLine();
+				if (str.equals("stop")) {
+					break;
+				}
+				fw.write(str);
+			}
+			fw.flush();
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("end of write.");
 	}
 }
