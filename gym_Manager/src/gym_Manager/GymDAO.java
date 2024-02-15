@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
+
 public class GymDAO {
 	Connection conn;
 	PreparedStatement psmt;
@@ -18,12 +20,12 @@ public class GymDAO {
 				+ "            mw,\r\n"
 				+ "            address,\r\n"
 				+ "            phone)\r\n"
-				+ "values (?,\r\n"
-				+ "        ?,\r\n"
-				+ "        ?,\r\n"
-				+ "        ?,\r\n"
-				+ "        ?,\r\n"
-				+ "        ?)";
+				+ "values  (?,\r\n"
+				+ "         ?,\r\n"
+				+ "         ?,\r\n"
+				+ "         ?,\r\n"
+				+ "         ?,\r\n"
+				+ "         ?)";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -42,10 +44,6 @@ public class GymDAO {
 			e.printStackTrace();
 		}
 		return false;
-	}
-//	public boolean updateMb() {
-//		
-//	}
-	
+	}	
 	
 }
