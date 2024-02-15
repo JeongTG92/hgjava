@@ -35,7 +35,7 @@ public class GymApp {
 
 				try {
 					Member mb = new Member(name, email, birth, gender, address, phone);
-					if (gdao.Insertmb(mb)) {
+					if (gdao.InsertMember(mb)) {
 						System.out.println("가입 완료");
 					} else {
 						System.out.println("등록 오류");

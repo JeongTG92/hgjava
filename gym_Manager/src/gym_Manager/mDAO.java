@@ -10,7 +10,7 @@ public class mDAO {
 	
 	public static Connection getConn() {
 		try {
-			Class.forName("oracle.jdbc.OraleDriver");
+			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "yedam", "yedam");
 		} catch (Exception e) {
 			e.printStackTrace();

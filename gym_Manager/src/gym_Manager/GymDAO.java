@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import javax.print.attribute.standard.JobMessageFromOperator;
 
 public class GymDAO {
-	Connection conn;
+	Connection conn = mDAO.getConn();
 	PreparedStatement psmt;
 	ResultSet rs;
 	String sql;
 	
-	public boolean Insertmb(Member mb) {
+	public boolean InsertMember(Member mb) {
 		sql = "insert into mb (name,\r\n"
 				+ "            email,\r\n"
 				+ "            birth_date,\r\n"
