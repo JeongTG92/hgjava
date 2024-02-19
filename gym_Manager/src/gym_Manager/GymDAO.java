@@ -55,25 +55,21 @@ public class GymDAO {
 		}
 		return false;
 	}
-	//이용권 구입
-//	public boolean selectMno(Member mb) {
-//		conn = mDAO.getConn();
-//		sql = "SELECT m_no FROM mb WHERE m_no = ?";
-//		
-//		try {
-//			psmt = conn.prepareStatement(sql);
-//			psmt.setInt(1, mb.getMno());
-//			
-//			rs = psmt.executeQuery();
-//			if(rs.equals(null)) {
-//				return false;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return true;
-//	}
-	
+	public boolean selectMno(Member mb) {
+	    conn = mDAO.getConn();
+	    sql = "SELECT m_no FROM mb WHERE m_no = ?";
+
+	    try {
+	        psmt = conn.prepareStatement(sql);
+	        psmt.setInt(1, mb.getMno());
+
+	        rs = psmt.executeQuery();
+	        return rs.next(); // 결과가 있으면 true, 없으면 false 반환
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } 
+	    return false;
+	}
 	public boolean InsertmbShip(MemberShip mbs) {
 		conn = mDAO.getConn();
 		sql = "INSERT INTO mbship (mb_option,\r\n"
@@ -102,10 +98,9 @@ public class GymDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, mb.getMno());
 			
-			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				Member mb = new Member();
+				mb = new Member();
 				mb.setMno(rs.getInt("m_no"));
 				mb.setName(rs.getString("name"));
 				mb.setEmail(rs.getString("email"));
@@ -168,38 +163,31 @@ public class GymDAO {
 	//정보수정
 	public boolean updateMb(Member mb) {
 		System.out.println(mb);
-		conn = mDAO.getConn();
-		sql = "UPDATE mb SET email = ?";
-		if(!mb.getAddress().equals("")) {
-			sql += ", address = ?";
-		}else if(!mb.getPhone().equals("")) {
-			sql += ", phone = ? ";
-		}
-		sql += "WHERE m_no = ?";
-		int p = 1;
-		
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(p++, mb.getEmail());
-			if(!mb.getAddress().equals("")) {
-				psmt.setString(p++, mb.getAddress());
-			}else if(!mb.getPhone().equals("")) {
-				psmt.setString(p++, mb.getPhone());
-			}
-			psmt.setInt(p++, mb.getMno());
-			int r = psmt.executeUpdate();
-			if(r > 0) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
+	    conn = mDAO.getConn();
+	    sql = "UPDATE mb SET email = ?, address = ?, phone = ? WHERE m_no = ?";
+	    
+	    try {
+	        psmt = conn.prepareStatement(sql);
+	        psmt.setString(1, mb.getEmail());
+	        psmt.setString(2, mb.getAddress());
+	        psmt.setString(3, mb.getPhone());
+	        psmt.setInt(4, mb.getMno());
+	        
+	        int r = psmt.executeUpdate();
+	        if (r > 0) {
+	            return true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 	//회원 삭제
 	public boolean deleteMb(int mno) {
 		conn = mDAO.getConn();
 		sql = "DELETE FROM mb WHERE m_no = ? ";
+		
+		Member mb = null;
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -233,5 +221,57 @@ public class GymDAO {
 		
 		return -1;
 	}
-
+	public int getSalesByOption(String option) {
+	    conn = mDAO.getConn();
+	    sql = "SELECT SUM(mb_price) FROM mbship WHERE mb_option = ?";
+	    
+	    try {
+	        psmt = conn.prepareStatement(sql);
+	        psmt.setString(1, option);
+	        rs = psmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            return rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(); // 리소스 닫기
+	    }
+	    
+	    return -1; // 오류 발생 시 -1 반환
+	}
+	
+	public int getTotalSales() {
+	    conn = mDAO.getConn();
+	    sql = "SELECT SUM(mb_price) FROM mbship";
+	    
+	    try {
+	        psmt = conn.prepareStatement(sql);
+	        
+	        rs = psmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return -1;
+	}
+	
+	  private void closeResources(Connection conn, PreparedStatement psmt, ResultSet rs) {
+	        try {
+	            if (rs != null) {
+	                rs.close();
+	            }
+	            if (psmt != null) {
+	                psmt.close();
+	            }
+	            if (conn != null) {
+	                conn.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 }
