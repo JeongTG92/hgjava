@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import oracle.net.nt.ConnectDescription;
 
 public class mDAO {
-	public static Connection conn;
+	public static Connection conn = mDAO.getConn();
 	
 	public static Connection getConn() {
 		try {
